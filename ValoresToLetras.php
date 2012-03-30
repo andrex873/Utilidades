@@ -7,8 +7,8 @@
  */
 class ValoresToLetras {
     
-    private static $UNIDADES    = 0;
-    private static $DECENAS     = 1;
+    private static $UNIDADES    = 0;    
+    private static $DECENAS     = 1;    
     private static $CENTENAS    = 2;
     
     private $numeros = 
@@ -16,19 +16,21 @@ class ValoresToLetras {
             array(""),
             array("UN ", array( 10 => "DIEZ ", 11 => "ONCE ", 12 => "DOCE ", 13 => "TRECE ", 14 => "CATORCE ", 15 => "QUINCE ", 0 => "DIECI"), array("CIEN", "CIENTO ") ),
             array("DOS ", array( 20 => "VEINTE", 0 => "VEINTI"), "DOSCIENTOS "),
-            array("TRES ", "TREINTA", "TRESCIENTOS "),
-            array("CUATRO ", "CUARENTA", "CUATROCIENTOS "),
-            array("CINCO ", "CINCUENTA", "QUINIENTOS "),
-            array("SEIS ", "SESENTA", "SEISCIENTOS "),
-            array("SIETE ", "SETENTA", "SETECIENTOS "),
-            array("OCHO ", "OCHENTA", "OCHOSIENTOS "),
-            array("NUEVE ", "NOVENTA", "NOVECIENTOS "),
+            array("TRES ", "TREINTA ", "TRESCIENTOS "),
+            array("CUATRO ", "CUARENTA ", "CUATROCIENTOS "),
+            array("CINCO ", "CINCUENTA ", "QUINIENTOS "),
+            array("SEIS ", "SESENTA ", "SEISCIENTOS "),
+            array("SIETE ", "SETENTA ", "SETECIENTOS "),
+            array("OCHO ", "OCHENTA ", "OCHOSIENTOS "),
+            array("NUEVE ", "NOVENTA ", "NOVECIENTOS "),
             
         );
     
     private $unidades = array(" ", "MIL ", "MILLON ", "MIL ", "BILLON ", "MIL ", "TRILLON ");
     
     private $text = "";
+    
+    private $nCount = 0;
     
     /**
      * Constructor de la clase que recibe el número que se desea convertir.
@@ -45,9 +47,10 @@ class ValoresToLetras {
             $divNum[] = strrev(substr($numRev, ($idx*3), 3));            
         }
         $realNum = array_reverse($divNum);
+        $this->nCount = count($realNum);
         foreach($realNum as $key => $subNum){ 
             $this->leerCentenas($subNum);
-            $this->agregarCuantificador( (count($realNum)-1-$key) , $subNum);
+            $this->agregarCuantificador( ($this->nCount-1-$key) , $subNum);
         }        
     }      
     
@@ -101,7 +104,7 @@ class ValoresToLetras {
                         $this->text .= $contexto[self::$DECENAS][0];
                     }
                 }else{            
-                    $tmpText = in_array($num, array(30, 40, 50, 60, 70, 80, 90))? $contexto[self::$DECENAS]: $contexto[self::$DECENAS]." Y ";
+                    $tmpText = in_array($num, array(30, 40, 50, 60, 70, 80, 90))? $contexto[self::$DECENAS]: $contexto[self::$DECENAS]."Y ";
                     $this->text .= $tmpText;            
                 }        
             }        
@@ -129,11 +132,12 @@ class ValoresToLetras {
     private function agregarCuantificador($idx, $num){         
         if($idx == 0){
             $this->text .= $this->unidades[$idx];
-        }else if( $idx%2 == 0 ){            
+        }else if( $idx%2 == 0 ){ 
             $tmpText = $num == 1? $this->unidades[$idx]: trim($this->unidades[$idx])."ES ";
             $this->text .= $tmpText;           
-        }else{
-            $num == 1? $this->text = $this->unidades[$idx]: $this->text .= $this->unidades[$idx];            
+        }else{ 
+            if($num != 0)
+                $num == 1 && $this->nCount == 2? $this->text = $this->unidades[$idx]: $this->text .= $this->unidades[$idx];            
         }
     }
     
@@ -168,7 +172,7 @@ class ValoresToLetras {
             default:
                 $text = $this->text;
                 break;            
-        } 
+        }         
         return $text;
     }    
     
