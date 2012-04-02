@@ -37,18 +37,11 @@ class ValoresToLetras {
      * @param Int $numero Número que se desea convertir a letras.
      */
     public function __construct($numero) {
-        
-        $strlen = strlen($numero);
-        $iteraciones = ceil( ($strlen/3) );
-        $numRev = strrev($numero);
-
-        $divNum = array();
-        for($idx = 0; $idx < $iteraciones; $idx++){
-            $divNum[] = strrev(substr($numRev, ($idx*3), 3));            
-        }
-        $realNum = array_reverse($divNum);
-        $this->nCount = count($realNum);
-        foreach($realNum as $key => $subNum){ 
+                
+        $formatoNumero = number_format($numero, 0, '', '.');
+        $arrayNumero = explode(".", $formatoNumero);                        
+        $this->nCount = count($arrayNumero);
+        foreach($arrayNumero as $key => $subNum){ 
             $this->leerCentenas($subNum);
             $this->agregarCuantificador( ($this->nCount-1-$key) , $subNum);
         }        
