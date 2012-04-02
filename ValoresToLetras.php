@@ -130,7 +130,7 @@ class ValoresToLetras {
             $this->text .= $tmpText;           
         }else{ 
             if($num != 0)
-                $num == 1 && $this->nCount == 2? $this->text = $this->unidades[$idx]: $this->text .= $this->unidades[$idx];            
+                $num == 1 && $this->nCount == ($idx + 1)? $this->text = $this->unidades[$idx]: $this->text .= $this->unidades[$idx];            
         }
     }
     
