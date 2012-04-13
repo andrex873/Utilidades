@@ -169,4 +169,15 @@ class ValoresToLetras {
         return $text;
     }    
     
+    /**
+     * Método estática que retorna el valor en letras del número pasado por parámetro.
+     * @param Int $numero Numero el cual se pasara a letras.
+     * @param Char $formato Formato de salida del texto.
+     * @return String Retorna el número convertido en letras y con el formato aplicado. 
+     */
+    public static function convertirNumero($numero, $formato = 'U'){        
+        $object = new ValoresToLetras($numero);
+        return $object->getNumberText($formato);
+    }
+    
 }
