@@ -166,7 +166,7 @@ class ValoresToLetras {
                 $text = $this->text;
                 break;            
         }         
-        return $text;
+        return trim($text);
     }    
     
     /**
