@@ -21,7 +21,7 @@ class ValoresToLetras {
             array("CINCO ", "CINCUENTA ", "QUINIENTOS "),
             array("SEIS ", "SESENTA ", "SEISCIENTOS "),
             array("SIETE ", "SETENTA ", "SETECIENTOS "),
-            array("OCHO ", "OCHENTA ", "OCHOSIENTOS "),
+            array("OCHO ", "OCHENTA ", "OCHOCIENTOS "),
             array("NUEVE ", "NOVENTA ", "NOVECIENTOS "),
             
         );
